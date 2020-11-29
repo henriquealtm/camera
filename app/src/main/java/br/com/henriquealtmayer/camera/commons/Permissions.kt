@@ -8,13 +8,13 @@ import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import br.com.henriquealtmayer.camera.R
 
-// Request Section
+// Request Permission - Section
 fun Activity.requestCameraPermission(
     onPermissionGranted: () -> Unit
 ) {
     requestPermission(
         permissionName = Manifest.permission.CAMERA,
-        permissionCode = REQUEST_CAMERA_PERMISSION,
+        permissionCode = requestCameraPermission,
         onPermissionGranted = onPermissionGranted
     )
 }
@@ -24,7 +24,7 @@ fun Activity.requestWriteInternalStoragePermission(
 ) {
     requestPermission(
         permissionName = Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        permissionCode = REQUEST_WRITE_INTERNAL_STORAGE_PERMISSION,
+        permissionCode = requestWriteInternalStoragePermission,
         onPermissionGranted = onPermissionGranted
     )
 }
@@ -56,20 +56,20 @@ fun Activity.handleCameraPermissionResult(
     grantResults: IntArray
 ) {
     handlePermissionResult(
-        REQUEST_CAMERA_PERMISSION,
+        requestCameraPermission,
         requestCode,
         grantResults,
         R.string.camera_permission_not_granted
     )
 }
 
-// Handling Result Section
+// Handle Permission Result - Section
 fun Activity.handleWriteInternalStoragePermissionResult(
     requestCode: Int,
     grantResults: IntArray
 ) {
     handlePermissionResult(
-        REQUEST_WRITE_INTERNAL_STORAGE_PERMISSION,
+        requestWriteInternalStoragePermission,
         requestCode,
         grantResults,
         R.string.write_internal_storage_permission_not_granted

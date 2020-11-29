@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeUi() {
         initializeButtonOnClick(btn_camera_2_internet_sample, InternetSampleActivity::class.java)
+
         initializeButtonOnClick(btn_camera_2_lifecycle_aware, Camera2Activity::class.java)
     }
 

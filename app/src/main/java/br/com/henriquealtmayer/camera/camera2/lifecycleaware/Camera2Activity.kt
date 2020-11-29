@@ -14,16 +14,12 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import android.util.Size
-import android.util.SparseIntArray
 import android.view.Surface
 import android.view.TextureView.SurfaceTextureListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.henriquealtmayer.camera.R
-import br.com.henriquealtmayer.camera.commons.handleCameraPermissionResult
-import br.com.henriquealtmayer.camera.commons.handleWriteInternalStoragePermissionResult
-import br.com.henriquealtmayer.camera.commons.requestCameraPermission
-import br.com.henriquealtmayer.camera.commons.requestWriteInternalStoragePermission
+import br.com.henriquealtmayer.camera.commons.*
 import kotlinx.android.synthetic.main.activity_camera_2.*
 import java.io.*
 import java.util.*
@@ -34,14 +30,6 @@ class Camera2Activity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "Camera2Activity"
-        private val ORIENTATIONS = SparseIntArray()
-
-        init {
-            ORIENTATIONS.append(Surface.ROTATION_0, 90)
-            ORIENTATIONS.append(Surface.ROTATION_90, 0)
-            ORIENTATIONS.append(Surface.ROTATION_180, 270)
-            ORIENTATIONS.append(Surface.ROTATION_270, 180)
-        }
     }
 
     private var cameraId: String? = null
@@ -58,7 +46,7 @@ class Camera2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_2)
 
-//        texture.surfaceTextureListener = textureListener
+        texture.surfaceTextureListener = textureListener
 
         btn_take_picture.setOnClickListener { takePicture() }
 
@@ -162,7 +150,7 @@ class Camera2Activity : AppCompatActivity() {
             captureBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
             // Orientation
             val rotation = windowManager.defaultDisplay.rotation
-            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS[rotation])
+            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, jpegOrientations[rotation])
             val file = File(Environment.getExternalStorageDirectory().toString() + "/pic.jpg")
             val readerListener: OnImageAvailableListener = object : OnImageAvailableListener {
                 override fun onImageAvailable(reader: ImageReader) {
@@ -325,7 +313,7 @@ class Camera2Activity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.e(TAG, "onResume")
+
         startBackgroundThread()
         if (texture.isAvailable) {
             openCamera()
@@ -335,9 +323,9 @@ class Camera2Activity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        Log.e(TAG, "onPause")
         //closeCamera();
         stopBackgroundThread()
+
         super.onPause()
     }
 }
