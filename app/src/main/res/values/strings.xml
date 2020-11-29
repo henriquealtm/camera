@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Camera</string>
+
+    <!-- Commons -->
+    <string name="take_picture">Take picture</string>
+
+    <!-- Camera 2 -->
+    <string name="camera_2_internet_sample">Camera 2 - Internet Sample</string>
+    <string name="camera_2_lifecycle_aware">Camera 2 - Lifecycle Aware Component</string>
+
+    <!-- Camera X -->
+    <string name="camera_x">Camera X</string>
+
+    <!-- Permissions -->
+    <string name="camera_permission_not_granted">Sorry, you can\'t use this app without granting camera permission!</string>
+    <string name="write_internal_storage_permission_not_granted">Sorry, you can\'t use this app without granting photos and media permission!</string>
+
+</resources>
